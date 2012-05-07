@@ -26,14 +26,13 @@ our $owner = 'staticsafe';
 our $prefix = ".";
 
 sub get_weather_data {
-    my $userlocation = $_[0];
     my $weather = Weather::Underground->new(
-        place => $userlocation,
+        place => "Montreal, Canada",
         debug => 0,
     )
     || die "Error, could not get weather: $@\n";
 
-    my $gettingweather = $weather->get_weather() || die "Error calling get_weather()";
+    my %gettingweather = $weather->get_weather() || die "Error calling get_weather()";
     return $gettingweather{"temperature_celsius"};
 }
 
@@ -51,10 +50,7 @@ sub message_public {
     };
 
     given ($cmd[0]) {
-        when ($prefix . 'weatherver') { #sends version
-            send_msg($server, $target, "This is Fear-chan's weather module, version 0.1.")
-        }
-        when ($prefix . 'w') { #get weather
+        when ($prefix . 'w') { #sends weather
             send_msg($server, $target, get_weather_data($cmd[1]));
         }
     }
