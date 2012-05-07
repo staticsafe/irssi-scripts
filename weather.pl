@@ -26,16 +26,16 @@ our $owner = 'staticsafe';
 our $prefix = ".";
 
 sub get_weather_data {
-    $userlocation = $_[0];
-    $weather = Weather::Underground->new(
+    my $userlocation = $_[0];
+    my $weather = Weather::Underground->new(
         place => $userlocation,
         debug => 0,
     )
     || die "Error, could not get weather: $@\n";
 
-    $gettingweather = $weather->get_weather() || die "Error calling get_weather()";
+    my $gettingweather = $weather->get_weather() || die "Error calling get_weather()";
 
-    $finalresult = $gettingweather{"temperature_celsius"};
+    my $finalresult = $gettingweather{"temperature_celsius"};
     return $finalresult;
 }
 
