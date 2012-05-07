@@ -34,9 +34,7 @@ sub get_weather_data {
     || die "Error, could not get weather: $@\n";
 
     my $gettingweather = $weather->get_weather() || die "Error calling get_weather()";
-
-    my $finalresult = values(%gettingweather{"temperature_celsius"});
-    return $finalresult;
+    return $gettingweather{"temperature_celsius"};
 }
 
 sub send_msg {
