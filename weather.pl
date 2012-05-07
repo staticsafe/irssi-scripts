@@ -35,7 +35,7 @@ sub get_weather_data {
 
     my $gettingweather = $weather->get_weather() || die "Error calling get_weather()";
 
-    my $finalresult = $gettingweather{"temperature_celsius"};
+    my $finalresult = values(%gettingweather{"temperature_celsius"});
     return $finalresult;
 }
 
