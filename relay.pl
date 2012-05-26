@@ -15,7 +15,15 @@ $VERSION = '1.01';
     license	    => 'GNU General Public License v3.0',
     changed     => 'Tue Oct 25 21:43:23 PDT 2011',
 );
-
+sub no_bullshit {
+    my ($msg) = @_;
+        print $msg;
+    if ($msg =~ m/(New\sAnime)|(XDCC\sSEND)/) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 sub message_public {                                         # parse the message
     my ($server, $msg, $nick, $nick_addr, $target) = @_;
 
@@ -29,19 +37,28 @@ sub message_public {                                         # parse the message
     if ($target  =~ m/#(?:$listen_to_channel)/) {
         if ($nick =~ /Sadaharu|Cerebrate/) {
             my $server2 = Irssi::server_find_tag($send_to_server);
-            $server2->command ("msg $send_to_channel $msg");
+             if (no_bullshit($msg)) {
+                $server2->command ("msg $send_to_channel $msg");
+            }
+
         }
     }
     elsif ($target =~ m/#(?:$listen_to_channel2)/) {
         if ($nick =~ /AS\|Sena|AS\|Hinata|AS\|Sana/) {
             my $server2 = Irssi::server_find_tag($send_to_server);
-            $server2->command ("msg $send_to_channel $msg");
+             if (no_bullshit($msg)) {
+                $server2->command ("msg $send_to_channel $msg");
+            }
+
         }
     }
     elsif ($target =~ m/#(?:$listen_to_channel3)/) {
         if ($nick =~ /A\|FanserviceBot|Cerebrate/) {
             my $server2 = Irssi::server_find_tag($send_to_server);
-            $server2->command ("msg $send_to_channel $msg");
+             if (no_bullshit($msg)) {
+                $server2->command ("msg $send_to_channel $msg");
+            }
+
         }
     }
 }
